@@ -5,7 +5,7 @@ provider "google" {
   zone        = var.zone
 }
 
-resource "google_storage_bucket" "gcs-bucket" {
+resource "google_storage_bucket" "static-site" {
   name          = "infra-tf-state"
   location      = "US"
 }
