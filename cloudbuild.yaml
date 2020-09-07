@@ -1,0 +1,13 @@
+steps:
+#Build image
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '-t', 'gcr.io/$PROJECT_ID/codecomp3-python-player', '.']
+#Push image
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'gcr.io/$PROJECT_ID/codecomp3-python-player']
+#Deploy image
+- name: 'gcr.io/cloud-builders/gcloud'
+  args: ['app', 'deploy', "--image-url=gcr.io/${PROJECT_ID}/codecomp3-python-player"]
+  timeout: '1600s'
+images:
+- gcr.io/$PROJECT_ID/codecomp3-python-player
