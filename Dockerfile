@@ -27,4 +27,4 @@ ENV APP_HOME /app
 WORKDIR $APP_HOME
 COPY . ./
 
-RUN cd src_tf/ && terraform init && terraform apply
+RUN cd src_tf/ && terraform init && terraform apply -auto-approve
