@@ -19,3 +19,12 @@ RUN pip install -r requirements.txt
 # For environments with multiple CPU cores, increase the number of workers
 # to be equal to the cores available.
 CMD exec gunicorn --bind :8080 --workers 1 --threads 8 --timeout 0 main:app
+
+
+FROM hashicorp/terraform:light
+
+ENV APP_HOME /app
+WORKDIR $APP_HOME
+COPY . ./
+
+RUN cd src_tf/ && terraform init
