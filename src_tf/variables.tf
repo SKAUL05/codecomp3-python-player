@@ -11,3 +11,7 @@ variable "region" {
 variable "zone" {
   default = "us-central1-f"
 }
+
+variable "credentials_file_path" {
+  default = "service_account.json"
+}
