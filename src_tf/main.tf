@@ -13,6 +13,25 @@ resource "google_project_service" "project" {
   disable_dependent_services = true
 }
 
+resource "google_app_engine_application" "app" {
+  project     = var.project
+  location_id = var.region
+}
+
+resource "google_cloudbuild_trigger" "codecomp-trigger" {
+  github {
+    owner = "SKAUL05"
+    name  = "codecomp3-python-player"
+    push {
+      branch = ".*"
+    }
+  }
+  substitutions = {
+      _PROJECT_ID = "terraform-271405"
+    }
+
+  filename = "cloudbuild.yaml"
+}
 
 
 provider "google-beta" {
