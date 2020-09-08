@@ -38,11 +38,11 @@ resource "google_cloudbuild_trigger" "codecomp-trigger" {
       branch = ".*"
     }
   }
-  build {
+  
   substitutions = {
       _PROJECT_ID = "terraform-271405"
     }
-  }
+
 
   filename = "cloudbuild.yaml"
 }
