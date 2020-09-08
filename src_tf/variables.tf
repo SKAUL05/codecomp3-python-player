@@ -15,3 +15,8 @@ variable "zone" {
 variable "credentials_file_path" {
   default = "service_account.json"
 }
+
+variable "service_list" {
+    type = list
+    default = ["iam.googleapis.com","appengine.googleapis.com","cloudbuild.googleapis.com"]
+}

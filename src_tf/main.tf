@@ -5,15 +5,12 @@ provider "google" {
   zone        = var.zone
 }
 
-resource "google_storage_bucket" "tf-state" {
-  name          = "terraform-271405-infra-tf-state"
-  project       = var.project
-  location      = var.region
-  force_destroy = true
-  storage_class = "REGIONAL"
-  versioning {
-    enabled = true
-  }
+resource "google_project_service" "project" {
+  project = var.project
+  count   = length(var.service_list)
+  service = var.service_list[count.index]
+
+  disable_dependent_services = true
 }
 
 
