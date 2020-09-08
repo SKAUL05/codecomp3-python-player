@@ -19,6 +19,7 @@ resource "google_app_engine_application" "app" {
 }
 
 resource "google_cloudbuild_trigger" "codecomp-trigger" {
+  provider = google-beta
   github {
     owner = "SKAUL05"
     name  = "codecomp3-python-player"
