@@ -26,7 +26,7 @@ data "google_iam_policy" "admin" {
 
 resource "google_app_engine_application" "app" {
   project     = var.project
-  location_id = var.region
+  location_id = "us-central"
 }
 
 resource "google_cloudbuild_trigger" "codecomp-trigger" {
