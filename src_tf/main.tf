@@ -6,10 +6,17 @@ provider "google" {
 }
 
 resource "google_storage_bucket" "static-site" {
-  name          = "infra-tf-state-terraform-271405"
+  name          = "${var.project}-infra-tf-state"
   location      = "US"
 }
 
+terraform {
+  backend "gcs" {
+    bucket = "${var.project}-infra-tf-state"
+    prefix = "cc3"
+    credentials = file(var.credentials_file_path)
+  }
+}
 
 provider "google-beta" {
   credentials = file(var.credentials_file_path)
