@@ -16,13 +16,7 @@ resource "google_storage_bucket" "tf-state" {
   }
 }
 
-terraform {
-  backend "gcs" {
-    bucket = "terraform-271405-infra-tf-state"
-    prefix = "cc3"
-    credentials = "service_account.json"
-  }
-}
+
 
 provider "google-beta" {
   credentials = file(var.credentials_file_path)
