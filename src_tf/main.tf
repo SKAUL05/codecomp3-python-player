@@ -12,7 +12,7 @@ resource "google_storage_bucket" "static-site" {
 
 terraform {
   backend "gcs" {
-    bucket = "${var.project}-infra-tf-state"
+    bucket = "terraform-271405-infra-tf-state"
     prefix = "cc3"
     credentials = "service_account.json"
   }
