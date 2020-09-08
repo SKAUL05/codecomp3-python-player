@@ -14,7 +14,7 @@ terraform {
   backend "gcs" {
     bucket = "${var.project}-infra-tf-state"
     prefix = "cc3"
-    credentials = file(var.credentials_file_path)
+    credentials = "service_account.json"
   }
 }
 
