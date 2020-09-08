@@ -6,7 +6,7 @@ provider "google" {
 }
 
 resource "google_storage_bucket" "static-site" {
-  name          = "${var.project}-infra-tf-state"
+  name          = "terraform-271405-infra-tf-state"
   location      = "US"
 }
 
