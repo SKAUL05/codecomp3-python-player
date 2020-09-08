@@ -18,5 +18,13 @@ variable "credentials_file_path" {
 
 variable "service_list" {
     type = list
-    default = ["iam.googleapis.com","appengine.googleapis.com","cloudbuild.googleapis.com"]
+    default = [
+    "serviceusage.googleapis.com",
+    "logging.googleapis.com",
+    "iam.googleapis.com",
+    "admin.googleapis.com",
+    "appengine.googleapis.com",
+    "storage-api.googleapis.com",
+    "cloudbuild.googleapis.com"
+  ]
 }
