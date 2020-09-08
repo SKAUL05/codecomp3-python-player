@@ -5,9 +5,15 @@ provider "google" {
   zone        = var.zone
 }
 
-resource "google_storage_bucket" "static-site" {
+resource "google_storage_bucket" "tf-state" {
   name          = "terraform-271405-infra-tf-state"
-  location      = "US"
+  project       = var.project
+  location      = var.region
+  force_destroy = true
+  storage_class = "REGIONAL"
+  versioning {
+    enabled = true
+  }
 }
 
 terraform {
