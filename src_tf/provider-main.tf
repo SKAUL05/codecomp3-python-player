@@ -1,5 +1,5 @@
 terraform {
-  required_version = "~> 0.19.6"
+  required_version = "~> 0.12.6"
   backend "gcs" {
     bucket = "terraform-271405-infra-tf-state"
     prefix = "cc3"
