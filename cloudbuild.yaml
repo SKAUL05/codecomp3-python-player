@@ -19,7 +19,7 @@ steps:
   args:
   - '-c'
   - |
-       APP_STATUS=`echo $x | jq -r '.servingStatus'`
+       APP_STATUS=`echo $APP_STATUS_JSON | jq -r '.servingStatus'`
        echo $APP_STATUS
        if [[ $APP_STATUS == "SERVING" ]]; then
           echo "Yes"
