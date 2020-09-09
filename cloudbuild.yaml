@@ -13,12 +13,6 @@ steps:
   - '-c'
   - |
        APP_STATUS_JSON=$(gcloud app describe --format="json")
-       
-- name: 'stedolan/jq'
-  entrypoint: 'sh'
-  args:
-  - '-c'
-  - |
        echo $APP_STATUS_JSON
        APP_STATUS=`echo $APP_STATUS_JSON | jq -r '.servingStatus'`
        echo $APP_STATUS

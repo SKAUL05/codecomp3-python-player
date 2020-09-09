@@ -21,6 +21,10 @@ RUN pip install -r requirements.txt
 CMD exec gunicorn --bind :8080 --workers 1 --threads 8 --timeout 0 main:app
 
 
+FROM stedolan/jq
+
+RUN jq
+
 #FROM hashicorp/terraform:light
 
 #ENV APP_HOME /app
