@@ -16,22 +16,23 @@ steps:
        APP_STATUS_JSON=$(gcloud app describe --format="json")
        APP_STATUS=`echo $x | jq -r '.servingStatus'`
        echo $APP_STATUS
-       if [ $APP_STATUS == "SERVING" ]; then
+       if [[ $APP_STATUS == "SERVING" ]]; then
           echo "Yes"
        else
           echo "No"
        fi
+
 - name: 'gcr.io/cloud-builders/gsutil'
   entrypoint: 'sh'
   args:
   - '-c'
   - |
       PROJECT_ID=$(gcloud config get-value project)
-      gsutil gs://${PROJECT_ID}-tf-infra || (gsutil mb gs://${PROJECT_ID}-tf-infra && gsutil versioning set on gs://${PROJECT_ID}-tf-infra)
+      gsutil ls gs://${PROJECT_ID}-tf-infra || (gsutil mb gs://${PROJECT_ID}-tf-infra && gsutil versioning set on gs://${PROJECT_ID}-tf-infra)
 
 #Deploy image
 - name: 'gcr.io/cloud-builders/gcloud'
   args: ['app', 'deploy', "--image-url=gcr.io/${PROJECT_ID}/codecomp3-python-player"]
   timeout: '1600s'
 images:
-- gcr.io/$PROJECT_ID/codecomp3-python-player
+- [gcr.io/$PROJECT_ID/codecomp3-python-player,stedolan/jq]
