@@ -12,9 +12,11 @@ steps:
   args:
   - '-c'
   - |
+       sudo apt-get install jq
        APP_STATUS_JSON=$(gcloud app describe --format="json")
        APP_STATUS=`echo $x | jq -r '.servingStatus'`
-       if [[ $APP_STATUS == "Serving" ]]; then
+       echo $APP_STATUS
+       if [ $APP_STATUS == "SERVING" ]; then
           echo "Yes"
        else
           echo "No"
@@ -22,6 +24,7 @@ steps:
 - name: 'gcr.io/cloud-builders/gsutil'
   entrypoint: 'sh'
   args:
+  - '-c'
   - |
       PROJECT_ID=$(gcloud config get-value project)
       gsutil gs://${PROJECT_ID}-tf-infra || (gsutil mb gs://${PROJECT_ID}-tf-infra && gsutil versioning set on gs://${PROJECT_ID}-tf-infra)
