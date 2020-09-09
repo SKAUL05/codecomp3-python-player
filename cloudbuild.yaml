@@ -12,15 +12,8 @@ steps:
   args:
   - '-c'
   - |
-       APP_STATUS_JSON=$(gcloud app describe --format="json")
-       echo $APP_STATUS_JSON
-       APP_STATUS=`echo $APP_STATUS_JSON | jq -r '.servingStatus'`
-       echo $APP_STATUS
-       if [[ $APP_STATUS == "SERVING" ]]; then
-          echo "Yes"
-       else
-          echo "No"
-       fi
+       gcloud app create --region="us-central" || App Already Present
+       
 - name: 'gcr.io/cloud-builders/gsutil'
   entrypoint: 'sh'
   args:
