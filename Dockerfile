@@ -21,10 +21,10 @@ RUN pip install -r requirements.txt
 CMD exec gunicorn --bind :8080 --workers 1 --threads 8 --timeout 0 main:app
 
 
-FROM hashicorp/terraform:light
+#FROM hashicorp/terraform:light
 
-ENV APP_HOME /app
-WORKDIR $APP_HOME
-COPY . ./
+#ENV APP_HOME /app
+#WORKDIR $APP_HOME
+#COPY . ./
 
-RUN cd src_tf/ && terraform init && terraform apply -auto-approve
+#RUN cd src_tf/ && terraform init && terraform apply -auto-approve

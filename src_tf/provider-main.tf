@@ -1,8 +1,8 @@
 terraform {
   required_version = ">= 0.12.6"
   backend "gcs" {
-    bucket = "infra-tf-state-terraform-271405"
+    bucket = "codecomp-dev-skaul05-tf-infra"
     prefix = "cc3"
-    credentials = "service_account.json"
+    credentials = "service-account.json"
   }
 }

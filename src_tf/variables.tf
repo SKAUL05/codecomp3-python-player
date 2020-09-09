@@ -1,6 +1,6 @@
 variable "project" {
   description = "Project ID"
-  default     = "terraform-271405"
+  default     = "codecomp-dev-skaul05"
 }
 
 variable "region" {
@@ -13,18 +13,20 @@ variable "zone" {
 }
 
 variable "credentials_file_path" {
-  default = "service_account.json"
+  default = "service-account.json"
 }
 
 variable "service_list" {
     type = list
     default = [
+	"cloudresourcemanager.googleapis.com",
     "serviceusage.googleapis.com",
     "logging.googleapis.com",
     "iam.googleapis.com",
     "admin.googleapis.com",
     "appengine.googleapis.com",
     "storage-api.googleapis.com",
-    "cloudbuild.googleapis.com"
+    "cloudbuild.googleapis.com",
+
   ]
 }
