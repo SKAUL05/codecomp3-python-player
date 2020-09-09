@@ -19,6 +19,7 @@ steps:
   args:
   - '-c'
   - |
+       echo $APP_STATUS_JSON
        APP_STATUS=`echo $APP_STATUS_JSON | jq -r '.servingStatus'`
        echo $APP_STATUS
        if [[ $APP_STATUS == "SERVING" ]]; then
