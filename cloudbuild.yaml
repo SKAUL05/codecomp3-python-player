@@ -12,8 +12,13 @@ steps:
   args:
   - '-c'
   - |
-       sudo apt-get install jq
        APP_STATUS_JSON=$(gcloud app describe --format="json")
+       
+- name: 'alpine'
+  entrypoint: 'sh'
+  args:
+  - '-c'
+  - |
        APP_STATUS=`echo $x | jq -r '.servingStatus'`
        echo $APP_STATUS
        if [[ $APP_STATUS == "SERVING" ]]; then
@@ -21,7 +26,6 @@ steps:
        else
           echo "No"
        fi
-
 - name: 'gcr.io/cloud-builders/gsutil'
   entrypoint: 'sh'
   args:
@@ -35,4 +39,4 @@ steps:
   args: ['app', 'deploy', "--image-url=gcr.io/${PROJECT_ID}/codecomp3-python-player"]
   timeout: '1600s'
 images:
-- [gcr.io/$PROJECT_ID/codecomp3-python-player,stedolan/jq]
+- gcr.io/$PROJECT_ID/codecomp3-python-player
