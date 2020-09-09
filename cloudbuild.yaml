@@ -14,7 +14,7 @@ steps:
   - |
        APP_STATUS_JSON=$(gcloud app describe --format="json")
        
-- name: 'alpine'
+- name: 'stedolan/jq'
   entrypoint: 'sh'
   args:
   - '-c'
