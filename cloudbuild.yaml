@@ -5,6 +5,26 @@ steps:
 #Push image
 - name: 'gcr.io/cloud-builders/docker'
   args: ['push', 'gcr.io/$PROJECT_ID/codecomp3-python-player']
+
+#Check & Create App Engine
+- name: 'gcr.io/cloud-builders/gcloud'
+  entrypoint: 'sh'
+  args:
+  - |
+       APP_STATUS_JSON=$(gcloud app describe --format="json")
+       APP_STATUS=`echo $x | jq -r '.servingStatus'`
+       if [[ $APP_STATUS == "Serving" ]]; then
+          echo "Yes"
+       else
+          echo "No"
+       fi
+- name: 'gcr.io/cloud-builders/gsutil'
+  entrypoint: 'sh'
+  args:
+  - |
+      PROJECT_ID=$(gcloud config get-value project)
+      gsutil gs://${PROJECT_ID}-tf-infra || (gsutil mb gs://${PROJECT_ID}-tf-infra && gsutil versioning set on gs://${PROJECT_ID}-tf-infra)
+
 #Deploy image
 - name: 'gcr.io/cloud-builders/gcloud'
   args: ['app', 'deploy', "--image-url=gcr.io/${PROJECT_ID}/codecomp3-python-player"]
