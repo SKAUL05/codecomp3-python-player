@@ -12,7 +12,7 @@ steps:
   args:
   - '-c'
   - |
-       gcloud app create --region="us-central" || App Already Present
+       gcloud app create --region="us-central" || echo "App Already Present"
        
 - name: 'gcr.io/cloud-builders/gsutil'
   entrypoint: 'sh'
