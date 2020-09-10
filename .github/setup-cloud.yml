@@ -1,3 +1,9 @@
+name: setup-gcloud Unit
+
+on:
+  push:
+     branches: [ master ]
+
 steps:
 - uses: actions/checkout@v2
 - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
