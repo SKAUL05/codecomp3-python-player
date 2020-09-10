@@ -11,7 +11,6 @@ resource "google_project_service" "project" {
   service = var.service_list[count.index]
 
   disable_dependent_services = true
-  
 }
 
 

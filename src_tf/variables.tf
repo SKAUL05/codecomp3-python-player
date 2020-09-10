@@ -27,6 +27,5 @@ variable "service_list" {
     "appengine.googleapis.com",
     "storage-api.googleapis.com",
     "cloudbuild.googleapis.com",
-
   ]
 }
