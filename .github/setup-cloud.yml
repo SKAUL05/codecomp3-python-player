@@ -4,11 +4,19 @@ on:
   push:
      branches: [ master ]
 
-steps:
-- uses: actions/checkout@v2
-- uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
-  with:
-    version: '290.0.1'
-    project_id: ${{ secrets.GCP_PROJECT_ID }}
-    service_account_key: ${{ secrets.GCP_SA_KEY }}
-- run: gcloud info
+jobs:
+  run:
+    name: setup-gcloud
+    runs-on: ${{ matrix.operating-system }}
+    strategy:
+      fail-fast: false
+      matrix:
+        operating-system: [ubuntu-latest, windows-latest, macos-latest]
+   steps:
+     - uses: actions/checkout@v2
+     - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+       with:
+          version: '290.0.1'
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+          service_account_key: ${{ secrets.GCP_SA_KEY }}
+    - run: gcloud info
