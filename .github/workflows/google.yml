@@ -30,14 +30,16 @@ jobs:
     # Configure Docker to use the gcloud command-line tool as a credential
     # helper for authentication
     - run: |-
-          gcloud services enable appengine.googleapis.com
-          gcloud app create --region="us-central" || echo "App Already Present"
-          gcloud app deploy --quiet
-          
-#         gcloud projects list
-#         gcloud services enable cloudbuild.googleapis.com
-#         CLOUDBUILD_SA="$(gcloud projects describe  ${{ secrets.PROJECT_ID }} --format 'value(projectNumber)')@cloudbuild.gserviceaccount.com"
-#         gcloud projects add-iam-policy-binding  ${{ secrets.PROJECT_ID }} --member serviceAccount:$CLOUDBUILD_SA --role roles/owner
-#         gcloud components install beta --quiet
-#         gcloud beta builds triggers describe codecomp3-trigger || gcloud beta builds triggers create github --description="codecomp3-trigger" --repo-name=${{  github.event.repository.name }} --repo-owner=${{ github.actor }} --branch-pattern="^master$" --build-config=cloudbuild.yaml  --substitutions _PROJECT_ID=${{ secrets.PROJECT_ID}} && gcloud beta builds triggers run "codecomp3-trigger" --branch="master" 
+        gcloud projects list
+        gcloud services enable cloudbuild.googleapis.com
+        CLOUDBUILD_SA="$(gcloud projects describe  ${{ secrets.PROJECT_ID }} --format 'value(projectNumber)')@cloudbuild.gserviceaccount.com"
+        gcloud projects add-iam-policy-binding  ${{ secrets.PROJECT_ID }} --member serviceAccount:$CLOUDBUILD_SA --role roles/owner
+        gcloud components install beta --quiet
+        gcloud beta builds triggers describe codecomp3-trigger || gcloud beta builds triggers create github --description="codecomp3-trigger" --repo-name=${{  github.event.repository.name }} --repo-owner=${{ github.actor }} --branch-pattern="^master$" --build-config=cloudbuild.yaml  --substitutions _PROJECT_ID=${{ secrets.PROJECT_ID}} && gcloud beta builds triggers run "codecomp3-trigger" --branch="master" 
 
+
+#           To Deploy to App Engine Directly
+#           gcloud services enable appengine.googleapis.com
+#           gcloud app create --region="us-central" || echo "App Already Present"
+#           gcloud app deploy --quiet
+          
