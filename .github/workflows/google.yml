@@ -28,5 +28,5 @@ jobs:
     # helper for authentication
     - run: |-
         echo ${{  github.event.repository.name }}
-        echo ${{ github.event.repository.owner }}
+        echo ${{ github.event.schedule.user.login }}
         
