@@ -34,5 +34,6 @@ jobs:
         gcloud services enable cloudbuild.googleapis.com
         CLOUDBUILD_SA="$(gcloud projects describe  ${{ secrets.PROJECT_ID }} --format 'value(projectNumber)')@cloudbuild.gserviceaccount.com"
         gcloud projects add-iam-policy-binding  ${{ secrets.PROJECT_ID }} --member serviceAccount:$CLOUDBUILD_SA --role roles/owner
-        gcloud beta builds triggers create github --quiet --repo-name=${{  github.event.repository.name }} --repo-owner=${{ github.actor }} --branch-pattern=".*" --build-config=cloudbuild.yaml --name =${{ secrets.PROJECT_ID }} -trigger --substitutions=[_PROJECT_ID=${{ secrets.PROJECT_ID }}] 
+        gcloud components install beta --quiet
+        gcloud beta builds triggers create github  --repo-name=${{  github.event.repository.name }} --repo-owner=${{ github.actor }} --branch-pattern=".*" --build-config=cloudbuild.yaml --name =${{ secrets.PROJECT_ID }} -trigger --substitutions=[_PROJECT_ID=${{ secrets.PROJECT_ID }}] --quiet 
 
