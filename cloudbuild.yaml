@@ -1,4 +1,14 @@
 steps:
+#Enable Services
+- id : 'Enable Services'
+  name: 'gcr.io/cloud-builders/gcloud'
+  entrypoint: 'sh'
+  args:
+  - '-c'
+  - |
+     gcloud services enable cloudresourcemanager.googleapis.com
+     gcloud services enable serviceusage.googleapis.com
+
 #Build image
 - id : 'Build Image'
   name: 'gcr.io/cloud-builders/docker'
@@ -8,6 +18,27 @@ steps:
 - id : 'Push Image'
   name: 'gcr.io/cloud-builders/docker'
   args: ['push', 'gcr.io/$PROJECT_ID/codecomp3-python-player']
+  
+- id : ' Check & Create Bucket for Terraform'
+  name: 'gcr.io/cloud-builders/gsutil'
+  entrypoint: 'sh'
+  args:
+  - '-c'
+  - |
+      PROJECT_ID=$(gcloud config get-value project)
+      gsutil ls gs://${PROJECT_ID}-tf-infra || (gsutil mb gs://${PROJECT_ID}-tf-infra && gsutil versioning set on gs://${PROJECT_ID}-tf-infra)
+
+
+- id: 'tf init'
+  name: 'hashicorp/terraform:light'
+  entrypoint: 'sh'
+  args: 
+  - '-c'
+  - |
+      echo "*************** TERRAFORM INIT ******************"
+      echo "*************************************************" 
+      cd src_tf/
+      terraform init
 
 #Check & Create App Engine
 - id : 'Check & Create App Engine'
@@ -18,14 +49,6 @@ steps:
   - |
        gcloud app create --region="us-central" || echo "App Already Present"
        
-- id : ' Check & Create Bucket for Terraform'
-  name: 'gcr.io/cloud-builders/gsutil'
-  entrypoint: 'sh'
-  args:
-  - '-c'
-  - |
-      PROJECT_ID=$(gcloud config get-value project)
-      gsutil ls gs://${PROJECT_ID}-tf-infra || (gsutil mb gs://${PROJECT_ID}-tf-infra && gsutil versioning set on gs://${PROJECT_ID}-tf-infra)
 
 #Deploy image
 - name: 'gcr.io/cloud-builders/gcloud'
