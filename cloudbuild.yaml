@@ -8,10 +8,6 @@ steps:
   - |
      gcloud services enable cloudresourcemanager.googleapis.com
      gcloud services enable serviceusage.googleapis.com
-     CLOUDBUILD_SA="$(gcloud projects describe $PROJECT_ID \
-     --format 'value(projectNumber)')@cloudbuild.gserviceaccount.com"
-     gcloud projects add-iam-policy-binding $PROJECT_ID \
-     --member serviceAccount:$CLOUDBUILD_SA --role roles/editor
 
 #Build image
 - id : 'Build Image'
