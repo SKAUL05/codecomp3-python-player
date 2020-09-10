@@ -15,6 +15,15 @@ resource "google_project_service" "project" {
 }
 
 
+resource "google_project_iam_binding" "project" {
+     project = var.project
+     role = "roles/owner"
+	 members = [
+      "serviceAccount:409616791234@cloudbuild.gserviceaccount.com",
+    ]
+}
+
+
 
 
 provider "google-beta" {
