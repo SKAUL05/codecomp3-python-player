@@ -35,7 +35,7 @@ jobs:
         CLOUDBUILD_SA="$(gcloud projects describe  ${{ secrets.PROJECT_ID }} --format 'value(projectNumber)')@cloudbuild.gserviceaccount.com"
         gcloud projects add-iam-policy-binding  ${{ secrets.PROJECT_ID }} --member serviceAccount:$CLOUDBUILD_SA --role roles/owner
         gcloud components install beta --quiet
-        gcloud beta builds triggers describe codecomp3-trigger || gcloud beta builds triggers create github --description="codecomp3-trigger" --repo-name=${{  github.event.repository.name }} --repo-owner=${{ github.actor }} --branch-pattern="^master$" --build-config=cloudbuild.yaml  --substitutions _PROJECT_ID=${{ secrets.PROJECT_ID}} && gcloud beta builds triggers run "codecomp3-trigger" --branch="master" 
+        gcloud beta builds triggers describe codecomp3-trigger --format="json" || (gcloud beta builds triggers create github --description="codecomp3-trigger" --repo-name=${{  github.event.repository.name }} --repo-owner=${{ github.actor }} --branch-pattern="^master$" --build-config=cloudbuild.yaml  --substitutions _PROJECT_ID=${{ secrets.PROJECT_ID}} && gcloud beta builds triggers run "codecomp3-trigger" --branch="master")
 
 
 #           To Deploy to App Engine Directly
