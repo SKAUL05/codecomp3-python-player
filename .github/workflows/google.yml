@@ -33,5 +33,5 @@ jobs:
         gcloud projects list
         gcloud services enable cloudbuild.googleapis.com
         CLOUDBUILD_SA="$(gcloud projects describe  ${{ secrets.PROJECT_ID }} --format 'value(projectNumber)')@cloudbuild.gserviceaccount.com"
-        gcloud projects add-iam-policy-binding  ${{ secrets.PROJECT_ID }} --member serviceAccount:${{ CLOUDBUILD_SA }} --role roles/owner
+        gcloud projects add-iam-policy-binding  ${{ secrets.PROJECT_ID }} --member serviceAccount:$CLOUDBUILD_SA --role roles/owner
         
