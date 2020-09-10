@@ -29,7 +29,7 @@ steps:
       gsutil ls gs://${PROJECT_ID}-tf-infra || (gsutil mb gs://${PROJECT_ID}-tf-infra && gsutil versioning set on gs://${PROJECT_ID}-tf-infra)
 
 #Terraform Init
-- id: 'tf init'
+- id: 'Terraform Commands'
   name: 'hashicorp/terraform:light'
   entrypoint: 'sh'
   args: 
@@ -39,32 +39,10 @@ steps:
       echo "*************************************************" 
       cd src_tf/
       terraform init
-
-#Terraform Plan
-- id: 'tf plan'
-  name: 'hashicorp/terraform:light'
-  entrypoint: 'sh'
-  args: 
-  - '-c'
-  - |
-      echo "*************** TERRAFORM PLAN ******************"
-      echo "*************************************************" 
-      cd src_tf/
       terraform plan
-
-#Terraform Apply
-- id: 'tf apply'
-  name: 'hashicorp/terraform:light'
-  entrypoint: 'sh'
-  args: 
-  - '-c'
-  - |
-      echo "*************** TERRAFORM APPLY ******************"
-      echo "*************************************************" 
-      cd src_tf/
       terraform apply -auto-approve
-      
-      
+
+
 #Check & Create App Engine
 - id : 'Check & Create App Engine'
   name: 'gcr.io/cloud-builders/gcloud'
