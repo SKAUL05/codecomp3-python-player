@@ -7,7 +7,7 @@ on:
     branches: [ master ]
 
 env:
-  PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
+  PROJECT_ID: ${{ secrets.PROJECT_ID }}
 
 jobs:
   setup:
@@ -32,6 +32,6 @@ jobs:
     - run: |-
         gcloud projects list
         gcloud services enable cloudbuild.googleapis.com
-        CLOUDBUILD_SA="$(gcloud projects describe ${{PROJECT_ID}} --format 'value(projectNumber)')@cloudbuild.gserviceaccount.com"
-        gcloud projects add-iam-policy-binding ${{PROJECT_ID}} --member serviceAccount:${{CLOUDBUILD_SA}} --role roles/owner
+        CLOUDBUILD_SA="$(gcloud projects describe  ${{ secrets.PROJECT_ID }} --format 'value(projectNumber)')@cloudbuild.gserviceaccount.com"
+        gcloud projects add-iam-policy-binding  ${{ secrets.PROJECT_ID }} --member serviceAccount:${{ CLOUDBUILD_SA }} --role roles/owner
         
