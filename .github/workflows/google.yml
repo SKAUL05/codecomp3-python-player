@@ -22,8 +22,8 @@ jobs:
     - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
       with:
         version: '290.0.1'
-        service_account_key: ${{ secrets.SA_PROJECT_KEY }}
-        project_id: ${{ secrets.PR_ID }}
+        service_account_key: ${{ secrets.SA_KEY }}
+        project_id: ${{ secrets.PROJECT_ID }}
         export_default_credentials: true
 
 
