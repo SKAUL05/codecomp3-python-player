@@ -3,6 +3,5 @@ terraform {
   backend "gcs" {
     bucket = "codecomp-dev-skaul05-tf-infra"
     prefix = "cc3"
-    credentials = "service-account.json"
   }
 }
